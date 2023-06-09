@@ -4,8 +4,12 @@ import React, { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Avatar } from "../avatars/Avatar";
 import { MenuItem } from "./MenuItem";
+import { useStore } from "@/app/store/store";
+import { Store } from "@/app/interfaces";
 
 export const UserMenu = () => {
+  const { isOpenRegisterModal, onCloseRegisterModal, onOpenRegisterModal } =
+    useStore((store: Store) => store);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleOpen = useCallback(() => {
@@ -73,19 +77,9 @@ export const UserMenu = () => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem
-                onClick={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-                label={"Login"}
-              />
+              <MenuItem onClick={() => {}} label={"Login"} />
 
-              <MenuItem
-                onClick={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-                label={"Sign up"}
-              />
+              <MenuItem onClick={onOpenRegisterModal} label={"Sign up"} />
             </>
           </div>
         </div>
