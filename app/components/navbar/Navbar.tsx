@@ -1,23 +1,42 @@
 "use client";
 
 import React from "react";
+
 import { ContainerNavbar } from "../containers/ContainerNavbar";
-import { Logo } from "./Logo";
 import { Search } from "./Search";
 import { UserMenu } from "./UserMenu";
 
-export const Navbar = () => {
+import { Logo } from "./Logo";
+
+import { UserProps } from "@/app/interfaces";
+
+export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-4 border-b">
+      <div
+        className="
+          py-4 
+          border-b
+        "
+      >
         <ContainerNavbar>
-          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
+          <div
+            className="
+            flex 
+            flex-row 
+            items-center 
+            justify-between
+            gap-3
+            md:gap-0
+          "
+          >
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </ContainerNavbar>
       </div>
+      {/* <Categories /> */}
     </div>
   );
 };

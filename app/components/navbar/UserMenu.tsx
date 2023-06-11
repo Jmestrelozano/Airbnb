@@ -5,11 +5,13 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { Avatar } from "../avatars/Avatar";
 import { MenuItem } from "./MenuItem";
 import { useStore } from "@/app/store/store";
-import { Store } from "@/app/interfaces";
 
-export const UserMenu = () => {
-  const { isOpenRegisterModal, onCloseRegisterModal, onOpenRegisterModal } =
-    useStore((store: Store) => store);
+import { Store, UserProps } from "@/app/interfaces";
+
+export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
+  const { onOpenRegisterModal, onOpenLoginModal } = useStore(
+    (store: Store) => store
+  );
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleOpen = useCallback(() => {
@@ -76,11 +78,23 @@ export const UserMenu = () => {
           "
         >
           <div className="flex flex-col cursor-pointer">
-            <>
-              <MenuItem onClick={() => {}} label={"Login"} />
+            {currentUser ? (
+              <>
+                <MenuItem label="My trips" onClick={() => {}} />
+                <MenuItem label="My favorites" onClick={() => {}} />
+                <MenuItem label="My reservations" onClick={() => {}} />
+                <MenuItem label="My properties" onClick={() => {}} />
+                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <hr />
+                <MenuItem label="Logout" onClick={() => {}} />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={onOpenLoginModal} label={"Login"} />
 
-              <MenuItem onClick={onOpenRegisterModal} label={"Sign up"} />
-            </>
+                <MenuItem onClick={onOpenRegisterModal} label={"Sign up"} />
+              </>
+            )}
           </div>
         </div>
       )}
