@@ -41,6 +41,7 @@ export const RegisterModal = () => {
       .then(() => {
         toast.success("Registered!");
         onCloseRegisterModal();
+        onOpenLoginModal();
       })
       .catch((error) => {
         if (AxiosIsError(error)) {

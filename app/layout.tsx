@@ -6,7 +6,7 @@ import { RegisterModal } from "./components/modals/RegisterModal";
 
 import "./globals.css";
 import LoginModal from "./components/modals/LoginModal";
-import getCurrentUser from "./api/db/dbUser";
+import getCurrentUser from "./actions/dbUser";
 
 export const metadata = {
   title: "Airbnb",

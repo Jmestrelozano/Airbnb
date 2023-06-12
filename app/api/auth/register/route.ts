@@ -1,18 +1,31 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
-type Data = {
-  message: string;
-};
+import prismadb from "../../db/prismadb";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse<Data>) {
+export async function POST(req: Request) {
   try {
+    const body = await req.json();
+    const { email, name, password } = body;
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const user = await prismadb.user.create({
+      data: {
+        email,
+        name,
+        hashedPassword,
+      },
+    });
+
     return NextResponse.json({
-      message: "Exito",
+      data: user,
+      message: "Exitoso",
       status: NextResponse.json({}).status,
     });
   } catch (error) {
     return NextResponse.json({
+      data: null,
       message: "Server Errror",
       status: NextResponse.json({}).status,
     });

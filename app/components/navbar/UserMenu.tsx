@@ -2,6 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
+import { signOut } from "next-auth/react";
 import { Avatar } from "../avatars/Avatar";
 import { MenuItem } from "./MenuItem";
 import { useStore } from "@/app/store/store";
@@ -18,6 +19,7 @@ export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
     setIsOpen((value) => !value);
   }, []);
 
+  console.log(currentUser);
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -86,7 +88,7 @@ export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
                 <MenuItem label="My properties" onClick={() => {}} />
                 <MenuItem label="Airbnb your home" onClick={() => {}} />
                 <hr />
-                <MenuItem label="Logout" onClick={() => {}} />
+                <MenuItem label="Logout" onClick={signOut} />
               </>
             ) : (
               <>
