@@ -9,6 +9,7 @@ import { UserMenu } from "./UserMenu";
 import { Logo } from "./Logo";
 
 import { UserProps } from "@/app/interfaces";
+import { Categories } from "./Categories";
 
 export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
   return (
@@ -36,7 +37,7 @@ export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
           </div>
         </ContainerNavbar>
       </div>
-      {/* <Categories /> */}
+      <Categories />
     </div>
   );
 };

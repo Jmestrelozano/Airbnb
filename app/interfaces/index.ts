@@ -1,5 +1,6 @@
 export * from "./components/avatars/avatar";
 export * from "./components/buttons/button";
+export * from "./components/containers/containerCategoryBox";
 export * from "./components/containers/containerNavbar";
 export * from "./components/global";
 export * from "./components/headers/heading";
