@@ -12,3 +12,11 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+
+export type CountrySelectValue = {
+  flag: string;
+  label: string;
+  latlng: number[];
+  region: string;
+  value: string;
+};

@@ -10,7 +10,7 @@ import { useStore } from "@/app/store/store";
 import { Store, UserProps } from "@/app/interfaces";
 
 export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
-  const { onOpenRegisterModal, onOpenLoginModal } = useStore(
+  const { onOpenRegisterModal, onOpenLoginModal, onOpenRentModal } = useStore(
     (store: Store) => store
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,12 +19,18 @@ export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
     setIsOpen((value) => !value);
   }, []);
 
-  console.log(currentUser);
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return onOpenLoginModal();
+    }
+
+    onOpenRentModal();
+  }, [onOpenLoginModal, currentUser, onOpenRentModal]);
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={undefined}
+          onClick={onRent}
           className="
             hidden
             md:block
@@ -86,7 +92,7 @@ export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
                 <MenuItem label="My favorites" onClick={() => {}} />
                 <MenuItem label="My reservations" onClick={() => {}} />
                 <MenuItem label="My properties" onClick={() => {}} />
-                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <MenuItem label="Airbnb your home" onClick={onOpenRentModal} />
                 <hr />
                 <MenuItem label="Logout" onClick={signOut} />
               </>
