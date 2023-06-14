@@ -16,4 +16,5 @@ export * from "./components/modals/modal";
 export * from "./components/navbar/menuItem";
 export * from "./global";
 export * from "./home";
+export * from "./hooks/useFavorite";
 export * from "./store/store";
