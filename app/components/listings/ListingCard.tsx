@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { Button } from "../buttons/Button";
 import { HeartButton } from "../buttons/HeartButton";
 
-import useCountries from "@/app/hooks/useCountries";
+import { useCountries } from "@/app/hooks/useCountries";
 
 import { ListingCardProps } from "@/app/interfaces";
 

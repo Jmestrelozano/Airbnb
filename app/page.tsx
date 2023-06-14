@@ -1,5 +1,5 @@
 import { EmptyState } from "./components/alerts/EmptyState";
-import { ContainerNavbar as Container } from "./components/containers/ContainerNavbar";
+import { Container } from "./components/containers/Container";
 import { ListingCard } from "./components/listings/ListingCard";
 
 import getCurrentUser from "./actions/dbUser";

@@ -17,7 +17,7 @@ import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
 
-import { ContainerNavbar } from "../containers/ContainerNavbar";
+import { Container } from "../containers/Container";
 import { ContainerCategoryBox } from "../containers/ContainerCategoryBox";
 
 export const categories = [
@@ -109,7 +109,7 @@ export const Categories = () => {
   }
 
   return (
-    <ContainerNavbar>
+    <Container>
       <div
         className="
           pt-4
@@ -129,6 +129,6 @@ export const Categories = () => {
           />
         ))}
       </div>
-    </ContainerNavbar>
+    </Container>
   );
 };

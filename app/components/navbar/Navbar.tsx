@@ -2,14 +2,14 @@
 
 import React from "react";
 
-import { ContainerNavbar } from "../containers/ContainerNavbar";
+import { Container } from "../containers/Container";
 import { Search } from "./Search";
 import { UserMenu } from "./UserMenu";
-
-import { Logo } from "./Logo";
+import { Categories } from "./Categories";
 
 import { UserProps } from "@/app/interfaces";
-import { Categories } from "./Categories";
+
+import { Logo } from "./Logo";
 
 export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
   return (
@@ -20,7 +20,7 @@ export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
           border-b
         "
       >
-        <ContainerNavbar>
+        <Container>
           <div
             className="
             flex 
@@ -35,7 +35,7 @@ export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
             <Search />
             <UserMenu currentUser={currentUser} />
           </div>
-        </ContainerNavbar>
+        </Container>
       </div>
       <Categories />
     </div>

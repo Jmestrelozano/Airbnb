@@ -2,7 +2,7 @@
 
 import Select from "react-select";
 
-import useCountries from "@/app/hooks/useCountries";
+import { useCountries } from "@/app/hooks/useCountries";
 import { CountrySelectProps, CountrySelectValue } from "@/app/interfaces";
 
 export const CountrySelect: React.FC<CountrySelectProps> = ({
