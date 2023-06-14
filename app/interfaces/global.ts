@@ -1,5 +1,4 @@
-import { Listing, Reservation } from "@prisma/client";
-import { User } from "next-auth";
+import { Listing, Reservation, User } from "@prisma/client";
 
 export interface UserProps {
   currentUser?: User;
