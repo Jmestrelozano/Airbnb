@@ -24,6 +24,7 @@ export * from "./global";
 export * from "./home";
 export * from "./hooks/useFavorite";
 export * from "./listings/listingClient";
+export * from "./properties/propertiesClient";
 export * from "./reservations/reservationClient";
 export * from "./store/store";
 export * from "./trips/tripsClient";
