@@ -1,8 +1,10 @@
-import TripsClient from "./ReservationsClient";
 import { EmptyState } from "../components/alerts/EmptyState";
 
 import getReservations from "@/app/actions/getReservations";
 import getCurrentUser from "../actions/dbUser";
+import ReservationsClient from "./ReservationsClient";
+
+export const dynamic = "force-dynamic";
 
 const ReservationsPage = async () => {
   const currentUser = await getCurrentUser();
@@ -13,16 +15,21 @@ const ReservationsPage = async () => {
 
   const reservations = await getReservations({ authorId: currentUser.id });
 
-  if (reservations.length === 0) {
-    return (
-      <EmptyState
-        title="No reservations found"
-        subtitle="Looks like you have no reservations on your properties."
-      />
-    );
-  }
-
-  return <TripsClient reservations={reservations} currentUser={currentUser} />;
+  return (
+    <>
+      {reservations.length ? (
+        <ReservationsClient
+          reservations={reservations}
+          currentUser={currentUser}
+        />
+      ) : (
+        <EmptyState
+          title="No reservations found"
+          subtitle="Looks like you have no reservations on your properties."
+        />
+      )}
+    </>
+  );
 };
 
 export default ReservationsPage;
