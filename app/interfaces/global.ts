@@ -1,7 +1,7 @@
 import { Listing, Reservation, User } from "@prisma/client";
 
 export interface UserProps {
-  currentUser?: User;
+  currentUser?: TUser;
 }
 
 export type TUser = SafeUser | null;
