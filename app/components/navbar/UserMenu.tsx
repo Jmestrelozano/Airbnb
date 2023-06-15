@@ -1,15 +1,18 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { Avatar } from "../avatars/Avatar";
 import { MenuItem } from "./MenuItem";
+
 import { useStore } from "@/app/store/store";
 
 import { Store, UserProps } from "@/app/interfaces";
 
 export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
+  const router = useRouter();
   const { onOpenRegisterModal, onOpenLoginModal, onOpenRentModal } = useStore(
     (store: Store) => store
   );
@@ -88,10 +91,22 @@ export const UserMenu: React.FC<UserProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem label="My trips" onClick={() => {}} />
-                <MenuItem label="My favorites" onClick={() => {}} />
-                <MenuItem label="My reservations" onClick={() => {}} />
-                <MenuItem label="My properties" onClick={() => {}} />
+                <MenuItem
+                  label="My trips"
+                  onClick={() => router.push("/trips")}
+                />
+                <MenuItem
+                  label="My favorites"
+                  onClick={() => router.push("/favorites")}
+                />
+                <MenuItem
+                  label="My reservations"
+                  onClick={() => router.push("/reservations")}
+                />
+                <MenuItem
+                  label="My properties"
+                  onClick={() => router.push("/properties")}
+                />
                 <MenuItem label="Airbnb your home" onClick={onOpenRentModal} />
                 <hr />
                 <MenuItem label="Logout" onClick={signOut} />

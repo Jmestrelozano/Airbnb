@@ -24,3 +24,4 @@ export * from "./home";
 export * from "./hooks/useFavorite";
 export * from "./listings/listingClient";
 export * from "./store/store";
+export * from "./trips/tripsClient";
