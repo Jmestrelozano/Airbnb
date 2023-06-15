@@ -1,8 +1,12 @@
+import { Suspense } from "react";
+import Loading from "../loading";
 import { EmptyState } from "../components/alerts/EmptyState";
 import FavoritesClient from "./FavoritesClient";
 
 import getCurrentUser from "../actions/dbUser";
 import getFavoriteListings from "../actions/getFavoriteListings";
+
+export const dynamic = "force-dynamic";
 
 const ListingPage = async () => {
   const listings = await getFavoriteListings();
@@ -17,7 +21,11 @@ const ListingPage = async () => {
     );
   }
 
-  return <FavoritesClient listings={listings} currentUser={currentUser} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <FavoritesClient listings={listings} currentUser={currentUser} />
+    </Suspense>
+  );
 };
 
 export default ListingPage;

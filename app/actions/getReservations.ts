@@ -9,7 +9,7 @@ interface IParams {
 export default async function getReservations(params: IParams) {
   try {
     const { listingId, userId, authorId } = params;
-    console.log("aca");
+
     const query: any = {};
 
     if (listingId) {
