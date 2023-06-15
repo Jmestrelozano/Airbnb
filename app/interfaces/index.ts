@@ -19,6 +19,7 @@ export * from "./components/listings/listingReservation";
 export * from "./components/maps/mapBasic";
 export * from "./components/modals/modal";
 export * from "./components/navbar/menuItem";
+export * from "./favorites/favoriteClient";
 export * from "./global";
 export * from "./home";
 export * from "./hooks/useFavorite";
