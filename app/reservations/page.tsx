@@ -4,7 +4,7 @@ import getReservations from "@/app/actions/getReservations";
 import getCurrentUser from "../actions/dbUser";
 import ReservationsClient from "./ReservationsClient";
 
-export const fetchCache = "force-cache"
+export const dynamic = "force-dynamic";
 
 const ReservationsPage = async () => {
   const currentUser = await getCurrentUser();
