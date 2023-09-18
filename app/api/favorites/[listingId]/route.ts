@@ -7,7 +7,11 @@ interface IParams {
   listingId?: string;
 }
 
-export async function POST(request: Request, { params }: { params: IParams }) {
+export async function POST(request: Request, { params }: { params: IParams }, res: Response) {
+  res.headers.set(
+    'Cache-Control',
+    'public, s-maxage=31536000, stale-while-revalidate=59'
+  )
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {

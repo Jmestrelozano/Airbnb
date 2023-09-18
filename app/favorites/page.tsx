@@ -6,7 +6,7 @@ import FavoritesClient from "./FavoritesClient";
 import getCurrentUser from "../actions/dbUser";
 import getFavoriteListings from "../actions/getFavoriteListings";
 
-export const dynamic = "force-dynamic";
+export const fetchCache = "force-cache"
 
 const ListingPage = async () => {
   const listings = await getFavoriteListings();

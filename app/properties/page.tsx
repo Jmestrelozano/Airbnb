@@ -4,7 +4,7 @@ import { EmptyState } from "../components/alerts/EmptyState";
 import getCurrentUser from "../actions/dbUser";
 import getListings from "@/app/actions/getListings";
 
-export const dynamic = "force-dynamic";
+export const fetchCache = "force-cache"
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();

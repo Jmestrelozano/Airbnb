@@ -5,7 +5,7 @@ import { EmptyState } from "../components/alerts/EmptyState";
 
 import getCurrentUser from "../actions/dbUser";
 
-export const dynamic = "force-dynamic";
+export const fetchCache = "force-cache"
 
 const TripsPage = async () => {
   const currentUser = await getCurrentUser();
