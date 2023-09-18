@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-export const runtime = 'edge'; // 'nodejs' is the default
-export const preferredRegion = 'iad1';
+
 import getCurrentUser from "@/app/actions/dbUser";
 import prismadb from "@/app/api/db/prismadb";
 

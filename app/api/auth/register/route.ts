@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-export const runtime = 'edge'; // 'nodejs' is the default
-export const preferredRegion = 'iad1';
 import bcrypt from "bcrypt";
 
 import prismadb from "../../db/prismadb";

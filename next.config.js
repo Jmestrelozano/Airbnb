@@ -10,23 +10,6 @@ const nextConfig = {
       "res.cloudinary.com",
     ],
   },
-
-  webpack(config) {
-    config.resolve.fallback = {
-
-      // if you miss it, all the other options in fallback, specified
-      // by next.js will be dropped.
-      ...config.resolve.fallback,
-
-      fs: false, // the solution
-      path: false,
-      os: false,
-      child_process: false,
-
-    };
-
-    return config;
-  },
 };
 
 module.exports = nextConfig;
