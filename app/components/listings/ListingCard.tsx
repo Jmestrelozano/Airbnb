@@ -74,6 +74,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
           "
         >
           <Image
+            loading="lazy"
             fill
             className="
               object-cover 
