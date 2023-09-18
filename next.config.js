@@ -19,7 +19,10 @@ const nextConfig = {
       ...config.resolve.fallback,
 
       fs: false, // the solution
-      path: false
+      path: false,
+      os: false,
+      child_process: false,
+
     };
 
     return config;
