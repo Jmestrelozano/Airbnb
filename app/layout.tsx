@@ -12,6 +12,7 @@ import getCurrentUser from "./actions/dbUser";
 import "./globals.css";
 
 export const metadata = {
+  metadataBase: new URL('https://glistening-tulumba-d9f060.netlify.app'),
   title: "Airbnb",
   description: "Informacion sobre viajes",
   openGraph: {
