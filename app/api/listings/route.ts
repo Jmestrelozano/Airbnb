@@ -4,10 +4,11 @@ import getCurrentUser from "@/app/actions/dbUser";
 import prismadb from "@/app/api/db/prismadb";
 
 export async function POST(request: Request, res: Response) {
-  res.headers.set(
-    'Cache-Control',
-    'public, s-maxage=31536000, stale-while-revalidate=59'
-  )
+  const response = NextResponse.next();
+  response.headers.set(
+    "Cache-Control",
+    "public, s-maxage=31536000, stale-while-revalidate=59"
+  );
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
