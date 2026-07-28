@@ -1,4 +1,4 @@
-import { Listing, Reservation, User } from "@prisma/client";
+import type { Listing, Reservation, User } from "@prisma/client";
 
 export interface UserProps {
   currentUser?: TUser;

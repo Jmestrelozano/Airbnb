@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/ui/Button";
 import { InputCalendar } from "@/shared/ui/Calendar";
-import { ListingReservationProps } from "@/features/listings/types/listingReservation";
+import { ListingReservationProps } from "@/features/listings/types/listingReservation.interface";
 
 export const ListingReservation: React.FC<ListingReservationProps> = ({
   price,

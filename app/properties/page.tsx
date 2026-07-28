@@ -1,4 +1,4 @@
-import PropertiesClient from "@/features/properties/PropertiesClient";
+import PropertiesView from "@/features/properties/PropertiesView";
 import { EmptyState } from "@/shared/ui/EmptyState";
 
 import getCurrentUser from "@/features/auth/actions/dbUser";
@@ -18,7 +18,7 @@ const PropertiesPage = async () => {
   return (
     <>
       {listings.length ? (
-        <PropertiesClient listings={listings} currentUser={currentUser} />
+        <PropertiesView listings={listings} currentUser={currentUser} />
       ) : (
         <EmptyState
           title="No properties found"

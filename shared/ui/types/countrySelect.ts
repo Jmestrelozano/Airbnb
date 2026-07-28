@@ -1,6 +1,6 @@
 import { CountrySelectValue } from "@/shared/lib/types/global";
 
 export interface CountrySelectProps {
-  value?: CountrySelectValue;
+  value?: CountrySelectValue | null;
   onChange: (value: CountrySelectValue) => void;
 }

@@ -1,64 +1,25 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/navigation";
-import { useStore } from "@/shared/lib/store";
-import { Store } from "@/shared/lib/types/store";
+
 import { Heading } from "@/shared/ui/Heading";
 import { Input } from "@/shared/ui/Input";
 import { Button } from "@/shared/ui/Button";
 import { Modal } from "@/shared/ui/Modal";
+import { LoginModalProps } from "@/features/auth/types/loginModal.interface";
 
-const LoginModal = () => {
-  const router = useRouter();
-  const { isOpenLoginModal, onOpenRegisterModal, onCloseLoginModal } = useStore(
-    (store: Store) => store
-  );
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    }).then((callback) => {
-      setIsLoading(false);
-
-      if (callback?.ok) {
-        toast.success("Logged in");
-        router.refresh();
-        onCloseLoginModal();
-      }
-
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    });
-  };
-
-  const onToggle = useCallback(() => {
-    onCloseLoginModal();
-    onOpenRegisterModal();
-  }, [onCloseLoginModal, onOpenRegisterModal]);
-
+export const LoginModal: React.FC<LoginModalProps> = ({
+  isOpen,
+  isLoading,
+  register,
+  errors,
+  onClose,
+  onSubmit,
+  onToggle,
+  onGoogle,
+  onGithub,
+}) => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome back" subtitle="Login to your account!" />
@@ -89,27 +50,20 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn("google")}
+        onClick={onGoogle}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => signIn("github")}
+        onClick={onGithub}
       />
-      <div
-        className="
-      text-neutral-500 text-center mt-4 font-light"
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           First time using Airbnb?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Create an account
@@ -122,15 +76,13 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={isOpenLoginModal}
+      isOpen={isOpen}
       title="Login"
       actionLabel="Continue"
-      onClose={onCloseLoginModal}
-      onSubmit={handleSubmit(onSubmit)}
+      onClose={onClose}
+      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />
   );
 };
-
-export default LoginModal;

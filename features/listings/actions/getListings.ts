@@ -1,3 +1,5 @@
+import type { Listing, Prisma } from "@prisma/client";
+
 import prismadb from "@/shared/lib/prismadb";
 import { IListingsParams } from "@/shared/lib/types/global";
 
@@ -14,40 +16,40 @@ export default async function getListings(params: IListingsParams) {
       category,
     } = params;
 
-    let query: any = {};
+    const where: Prisma.ListingWhereInput = {};
 
     if (userId) {
-      query.userId = userId;
+      where.userId = userId;
     }
 
     if (category) {
-      query.category = category;
+      where.category = category;
     }
 
     if (roomCount) {
-      query.roomCount = {
+      where.roomCount = {
         gte: +roomCount,
       };
     }
 
     if (guestCount) {
-      query.guestCount = {
+      where.guestCount = {
         gte: +guestCount,
       };
     }
 
     if (bathroomCount) {
-      query.bathroomCount = {
+      where.bathroomCount = {
         gte: +bathroomCount,
       };
     }
 
     if (locationValue) {
-      query.locationValue = locationValue;
+      where.locationValue = locationValue;
     }
 
     if (startDate && endDate) {
-      query.NOT = {
+      where.NOT = {
         reservations: {
           some: {
             OR: [
@@ -66,19 +68,17 @@ export default async function getListings(params: IListingsParams) {
     }
 
     const listings = await prismadb.listing.findMany({
-      where: query,
+      where,
       orderBy: {
         createdAt: "desc",
       },
     });
 
-    const safeListings = listings.map((listing) => ({
+    return listings.map((listing: Listing) => ({
       ...listing,
       createdAt: listing.createdAt.toISOString(),
     }));
-
-    return safeListings;
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error(error instanceof Error ? error.message : String(error));
   }
 }

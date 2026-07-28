@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuItemProps } from "@/features/navigation/types/menuItem";
+import { MenuItemProps } from "@/features/navigation/types/menuItem.interface";
 import React from "react";
 
 export const MenuItem: React.FC<MenuItemProps> = ({ onClick, label }) => {

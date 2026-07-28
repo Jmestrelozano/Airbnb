@@ -1,49 +1,16 @@
 "use client";
 
-import { useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import qs from "query-string";
+import { ContainerCategoryBoxProps } from "@/features/navigation/types/containerCategoryBox.interface";
 
-import { CategoryBoxProps } from "@/features/navigation/types/containerCategoryBox";
-
-export const ContainerCategoryBox: React.FC<CategoryBoxProps> = ({
+export const ContainerCategoryBox: React.FC<ContainerCategoryBoxProps> = ({
   icon: Icon,
   label,
   selected,
+  onClick,
 }) => {
-  const router = useRouter();
-  const params = useSearchParams();
-
-  const handleClick = useCallback(() => {
-    let currentQuery = {};
-
-    if (params) {
-      currentQuery = qs.parse(params.toString());
-    }
-
-    const updatedQuery: any = {
-      ...currentQuery,
-      category: label,
-    };
-
-    if (params?.get("category") === label) {
-      delete updatedQuery.category;
-    }
-
-    const url = qs.stringifyUrl(
-      {
-        url: "/",
-        query: updatedQuery,
-      },
-      { skipNull: true }
-    );
-
-    router.push(url);
-  }, [label, router, params]);
-
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className={`
         flex 
         flex-col 

@@ -1,14 +1,10 @@
 "use client";
 
 import { ImageUploadProps } from "@/shared/ui/types/imageUpload";
-import { CldUploadWidget } from "next-cloudinary";
+import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import Image from "next/image";
 import { useCallback } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
-
-declare global {
-  var cloudinary: any;
-}
 
 const uploadPreset = "pva3y05v";
 
@@ -17,8 +13,13 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   value,
 }) => {
   const handleUpload = useCallback(
-    (result: any) => {
-      onChange(result.info.secure_url);
+    (result: CloudinaryUploadWidgetResults) => {
+      const info = result.info;
+      if (typeof info === "string" || !info?.secure_url) {
+        return;
+      }
+
+      onChange(info.secure_url);
     },
     [onChange]
   );
@@ -63,7 +64,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                   fill
                   style={{ objectFit: "cover" }}
                   src={value}
-                  alt="House" loading="lazy"
+                  alt="House"
+                  loading="lazy"
                 />
               </div>
             )}

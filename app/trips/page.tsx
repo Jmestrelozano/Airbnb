@@ -1,4 +1,4 @@
-import TripsClient from "@/features/trips/TripsClient";
+import TripsView from "@/features/trips/TripsView";
 
 import getReservations from "@/features/reservations/actions/getReservations";
 import { EmptyState } from "@/shared/ui/EmptyState";
@@ -19,7 +19,7 @@ const TripsPage = async () => {
   return (
     <>
       {reservations.length ? (
-        <TripsClient reservations={reservations} currentUser={currentUser} />
+        <TripsView reservations={reservations} currentUser={currentUser} />
       ) : (
         <EmptyState
           title="No trips found"

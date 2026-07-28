@@ -1,16 +1,13 @@
 "use client";
 
-import React from "react";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { LogoProps } from "@/features/navigation/types/logo.interface";
 
-export const Logo = () => {
-  const router = useRouter();
-
+export const Logo: React.FC<LogoProps> = ({ onClick }) => {
   return (
-    <Image loading="lazy"
-      onClick={() => router.push("/")}
+    <Image
+      loading="lazy"
+      onClick={onClick}
       alt="logo"
       className="hidden md:block cursor-pointer"
       height={100}
