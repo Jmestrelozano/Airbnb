@@ -1,9 +1,9 @@
-import TripsClient from "./TripsClient";
+import TripsClient from "@/features/trips/TripsClient";
 
-import getReservations from "@/app/actions/getReservations";
-import { EmptyState } from "../components/alerts/EmptyState";
+import getReservations from "@/features/reservations/actions/getReservations";
+import { EmptyState } from "@/shared/ui/EmptyState";
 
-import getCurrentUser from "../actions/dbUser";
+import getCurrentUser from "@/features/auth/actions/dbUser";
 
 export const dynamic = "force-dynamic";
 

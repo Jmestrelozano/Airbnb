@@ -1,10 +1,10 @@
-import { EmptyState } from "@/app/components/alerts/EmptyState";
+import { EmptyState } from "@/shared/ui/EmptyState";
 
-import ListingClient from "./ListingClient";
+import ListingClient from "@/features/listings/ListingClient";
 
-import getCurrentUser from "@/app/actions/dbUser";
-import getListingById from "@/app/actions/getListingById";
-import getReservations from "@/app/actions/getReservations";
+import getCurrentUser from "@/features/auth/actions/dbUser";
+import getListingById from "@/features/listings/actions/getListingById";
+import getReservations from "@/features/reservations/actions/getReservations";
 
 interface IParams {
   listingId?: string;
