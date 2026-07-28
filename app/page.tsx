@@ -1,11 +1,11 @@
-import { EmptyState } from "./components/alerts/EmptyState";
-import { Container } from "./components/containers/Container";
-import { ListingCard } from "./components/listings/ListingCard";
+import { EmptyState } from "@/shared/ui/EmptyState";
+import { Container } from "@/shared/ui/Container";
+import { ListingCard } from "@/features/listings/components/ListingCard";
 
-import getCurrentUser from "./actions/dbUser";
-import getListings from "./actions/getListings";
+import getCurrentUser from "@/features/auth/actions/dbUser";
+import getListings from "@/features/listings/actions/getListings";
 
-import { HomeProps } from "./interfaces";
+import { HomeProps } from "@/features/listings/types/home";
 
 export const dynamic = "force-dynamic";
 

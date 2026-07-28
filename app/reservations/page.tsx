@@ -1,8 +1,8 @@
-import { EmptyState } from "../components/alerts/EmptyState";
+import { EmptyState } from "@/shared/ui/EmptyState";
 
-import getReservations from "@/app/actions/getReservations";
-import getCurrentUser from "../actions/dbUser";
-import ReservationsClient from "./ReservationsClient";
+import getReservations from "@/features/reservations/actions/getReservations";
+import getCurrentUser from "@/features/auth/actions/dbUser";
+import ReservationsClient from "@/features/reservations/ReservationsClient";
 
 export const dynamic = "force-dynamic";
 
