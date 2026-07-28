@@ -20,6 +20,11 @@ enum STEPS {
   INFO = 2,
 }
 
+const Map = dynamic(
+  () => import("../maps/MapBasic").then(({ MapBasic }) => MapBasic),
+  { ssr: false }
+);
+
 export const SearchModal = () => {
   const router = useRouter();
   const { onCloseSearchModal, isOpenSearchModal } = useStore(
@@ -38,17 +43,6 @@ export const SearchModal = () => {
     endDate: new Date(),
     key: "selection",
   });
-
-  const Map = useMemo(
-    () =>
-      dynamic(
-        () => import("../maps/MapBasic").then(({ MapBasic }) => MapBasic),
-        {
-          ssr: false,
-        }
-      ),
-    [location]
-  );
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);

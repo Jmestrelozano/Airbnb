@@ -29,6 +29,11 @@ enum STEPS {
   PRICE = 5,
 }
 
+const Map = dynamic(
+  () => import("../maps/MapBasic").then((component) => component.MapBasic),
+  { ssr: false }
+);
+
 export const RentModal = () => {
   const router = useRouter();
   const { onCloseRentModal, isOpenRentModal } = useStore(
@@ -65,18 +70,6 @@ export const RentModal = () => {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
-
-  const Map = useMemo(
-    () =>
-      dynamic(
-        () =>
-          import("../maps/MapBasic").then((component) => component.MapBasic),
-        {
-          ssr: false,
-        }
-      ),
-    [location]
-  );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {

@@ -3,12 +3,7 @@ import bcrypt from "bcrypt";
 
 import prismadb from "../../db/prismadb";
 
-export async function POST(req: Request, res: Response) {
-  const response = NextResponse.next();
-  response.headers.set(
-    "Cache-Control",
-    "public, s-maxage=31536000, stale-while-revalidate=59"
-  );
+export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { email, name, password } = body;
@@ -26,13 +21,13 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json({
       data: user,
       message: "Exitoso",
-      status: NextResponse.json({}).status,
+      status: 200,
     });
   } catch (error) {
     return NextResponse.json({
       data: null,
       message: "Server Errror",
-      status: NextResponse.json({}).status,
+      status: 500,
     });
   }
 }
