@@ -12,6 +12,7 @@ export const Avatar: React.FC<AvatarProps> = ({ src }) => {
       width="30"
       alt="Avatar"
       src={src || "/assets/images/placeholder.jpg"}
+      loading="lazy"
     />
   );
 };

@@ -35,6 +35,7 @@ export const ListingHead: React.FC<ListingHeadProps> = ({
         "
       >
         <Image
+          loading="lazy"
           src={imageSrc}
           fill
           className="object-cover w-full"

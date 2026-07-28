@@ -10,7 +10,8 @@ import { HomeProps } from "./interfaces";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }: HomeProps) {
-  const listings = await getListings(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const listings = await getListings(resolvedSearchParams);
   const currentUser = await getCurrentUser();
 
   return (

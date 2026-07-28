@@ -21,13 +21,13 @@ export async function POST(req: Request) {
     return NextResponse.json({
       data: user,
       message: "Exitoso",
-      status: NextResponse.json({}).status,
+      status: 200,
     });
   } catch (error) {
     return NextResponse.json({
       data: null,
       message: "Server Errror",
-      status: NextResponse.json({}).status,
+      status: 500,
     });
   }
 }

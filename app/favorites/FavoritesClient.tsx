@@ -1,3 +1,5 @@
+'use client'
+
 import { Container } from "../components/containers/Container";
 import { Heading } from "../components/headers/Heading";
 import { ListingCard } from "../components/listings/ListingCard";
