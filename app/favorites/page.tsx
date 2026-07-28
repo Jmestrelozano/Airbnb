@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import Loading from "../loading";
-import { EmptyState } from "../components/alerts/EmptyState";
-import FavoritesClient from "./FavoritesClient";
+import { EmptyState } from "@/shared/ui/EmptyState";
+import FavoritesClient from "@/features/favorites/FavoritesClient";
 
-import getCurrentUser from "../actions/dbUser";
-import getFavoriteListings from "../actions/getFavoriteListings";
+import getCurrentUser from "@/features/auth/actions/dbUser";
+import getFavoriteListings from "@/features/favorites/actions/getFavoriteListings";
 
 export const dynamic = "force-dynamic";
 

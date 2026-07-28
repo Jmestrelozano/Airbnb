@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { EmptyState } from "./components/alerts/EmptyState";
+import { EmptyState } from "@/shared/ui/EmptyState";
 
 interface ErrorStateProps {
   error: Error;

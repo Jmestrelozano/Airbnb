@@ -1,14 +1,14 @@
 import { Nunito } from "next/font/google";
 import { Suspense } from "react";
 
-import { Navbar } from "./components/navbar/Navbar";
-import { ToasterProvider } from "./providers/ToasterProvider";
-import { RegisterModal } from "./components/modals/RegisterModal";
-import LoginModal from "./components/modals/LoginModal";
-import { RentModal } from "./components/modals/RentModal";
-import { SearchModal } from "./components/modals/SearchModal";
+import { Navbar } from "@/features/navigation/components/Navbar";
+import { ToasterProvider } from "@/shared/providers/ToasterProvider";
+import { RegisterModal } from "@/features/auth/components/RegisterModal";
+import LoginModal from "@/features/auth/components/LoginModal";
+import { RentModal } from "@/features/listings/components/RentModal";
+import { SearchModal } from "@/features/search/components/SearchModal";
 
-import getCurrentUser from "./actions/dbUser";
+import getCurrentUser from "@/features/auth/actions/dbUser";
 
 import "./globals.css";
 

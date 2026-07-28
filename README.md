@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Documentación de arquitectura
+
+- [Estructura por features](./docs/estructura-por-features.md) — qué es y cómo está organizado el repo
+- [Guía: crear una nueva feature](./docs/guia-nueva-feature.md) — cómo implementar una feature paso a paso
+
 ## Getting Started
 
 First, run the development server:
