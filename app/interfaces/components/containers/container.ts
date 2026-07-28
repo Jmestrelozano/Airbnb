@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ContainerProps {
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
 }

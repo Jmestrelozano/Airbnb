@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -51,8 +51,22 @@ const ListingClient: React.FC<ListingClientProps> = ({
   }, [listing.category]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
+  const totalPrice = useMemo(() => {
+    if (dateRange.startDate && dateRange.endDate) {
+      const dayCount = differenceInDays(
+        dateRange.endDate,
+        dateRange.startDate
+      );
+
+      if (dayCount && listing.price) {
+        return dayCount * listing.price;
+      }
+    }
+
+    return listing.price;
+  }, [dateRange, listing.price]);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -65,7 +79,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
-        listingId: listing?.id,
+        listingId: listing.id,
       })
       .then(() => {
         toast.success("Listing reserved!");
@@ -81,23 +95,11 @@ const ListingClient: React.FC<ListingClientProps> = ({
   }, [
     totalPrice,
     dateRange,
-    listing?.id,
+    listing.id,
     router,
     currentUser,
     onOpenLoginModal,
   ]);
-
-  useEffect(() => {
-    if (dateRange.startDate && dateRange.endDate) {
-      const dayCount = differenceInDays(dateRange.endDate, dateRange.startDate);
-
-      if (dayCount && listing.price) {
-        setTotalPrice(dayCount * listing.price);
-      } else {
-        setTotalPrice(listing.price);
-      }
-    }
-  }, [dateRange, listing.price]);
 
   return (
     <Container>

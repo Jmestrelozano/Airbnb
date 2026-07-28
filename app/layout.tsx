@@ -1,4 +1,5 @@
 import { Nunito } from "next/font/google";
+import { Suspense } from "react";
 
 import { Navbar } from "./components/navbar/Navbar";
 import { ToasterProvider } from "./providers/ToasterProvider";
@@ -12,13 +13,16 @@ import getCurrentUser from "./actions/dbUser";
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL('https://glistening-tulumba-d9f060.netlify.app'),
+  metadataBase: new URL("https://glistening-tulumba-d9f060.netlify.app"),
   title: "Airbnb",
   description: "Informacion sobre viajes",
   openGraph: {
-    title: 'Airbnb',
-    description: 'Viajes y hoteles a todo destino disponibles a cualquier precio',
-    image: ['https://res.cloudinary.com/dwx09pwkr/image/upload/v1694786760/Airbnb/dw60oorhyozfer4dsfph.webp']
+    title: "Airbnb",
+    description:
+      "Viajes y hoteles a todo destino disponibles a cualquier precio",
+    images: [
+      "https://res.cloudinary.com/dwx09pwkr/image/upload/v1694786760/Airbnb/dw60oorhyozfer4dsfph.webp",
+    ],
   },
 };
 
@@ -39,7 +43,9 @@ export default async function RootLayout({
         <ToasterProvider />
         <LoginModal />
         <RegisterModal />
-        <SearchModal />
+        <Suspense fallback={null}>
+          <SearchModal />
+        </Suspense>
         <RentModal />
         <Navbar currentUser={currentUser} />
 

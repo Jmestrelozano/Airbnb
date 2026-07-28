@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import { Container } from "../containers/Container";
 import { Search } from "./Search";
@@ -32,12 +32,16 @@ export const Navbar: React.FC<UserProps> = ({ currentUser }) => {
           "
           >
             <Logo />
-            <Search />
+            <Suspense fallback={<div className="h-12 w-full max-w-[400px]" />}>
+              <Search />
+            </Suspense>
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
-      <Categories />
+      <Suspense fallback={null}>
+        <Categories />
+      </Suspense>
     </div>
   );
 };

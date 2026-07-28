@@ -3,12 +3,7 @@ import { NextResponse } from "next/server";
 import prismadb from "@/app/api/db/prismadb";
 import getCurrentUser from "@/app/actions/dbUser";
 
-export async function POST(request: Request, res: Response) {
-  const response = NextResponse.next();
-  response.headers.set(
-    "Cache-Control",
-    "public, s-maxage=31536000, stale-while-revalidate=59"
-  );
+export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
