@@ -1,4 +1,5 @@
 export interface SearchProps {
+  isScrolled: boolean;
   isExpanded: boolean;
   activePanel: "where" | "dates" | "who" | null;
   locationLabel: string;
@@ -21,6 +22,7 @@ export interface SearchProps {
   clearLocation: () => void;
   clearDates: () => void;
   clearGuests: () => void;
+  clearAll: () => void;
   setDateRange: (value: import("react-date-range").Range) => void;
   setAdults: (value: number) => void;
   setChildrenCount: (value: number) => void;

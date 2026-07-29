@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Range } from "react-date-range";
 import { useRouter, useSearchParams } from "next/navigation";
 import { format, differenceInDays } from "date-fns";
@@ -38,7 +38,7 @@ function getInitialFromParams(
   };
 }
 
-export const useSearch = () => {
+export const useSearch = (isScrolled = false) => {
   const router = useRouter();
   const params = useSearchParams();
   const { getByValue } = useCountries();
@@ -52,6 +52,7 @@ export const useSearch = () => {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [activePanel, setActivePanel] = useState<SearchPanel>(null);
+  const wasScrolledRef = useRef(isScrolled);
   const [locationLabel, setLocationLabel] = useState(initial.locationLabel);
   const [location, setLocation] = useState<CountrySelectValue | undefined>(
     initial.location
@@ -108,6 +109,16 @@ export const useSearch = () => {
     setActivePanel(null);
   }, []);
 
+  // Al bajar (estilo Airbnb): cierra paneles y colapsa a la barra compacta
+  useEffect(() => {
+    const justScrolledDown = isScrolled && !wasScrolledRef.current;
+    wasScrolledRef.current = isScrolled;
+
+    if (justScrolledDown && isExpanded) {
+      closeSearch();
+    }
+  }, [isScrolled, isExpanded, closeSearch]);
+
   const onSelectDestination = useCallback(
     (destination: SuggestedDestination) => {
       setLocationLabel(destination.label);
@@ -149,6 +160,12 @@ export const useSearch = () => {
     setPets(0);
   }, []);
 
+  const clearAll = useCallback(() => {
+    clearLocation();
+    clearDates();
+    clearGuests();
+  }, [clearLocation, clearDates, clearGuests]);
+
   const onSubmit = useCallback(() => {
     const guestCount = Math.max(1, adults + childrenCount);
 
@@ -174,6 +191,7 @@ export const useSearch = () => {
   ]);
 
   return {
+    isScrolled,
     isExpanded,
     activePanel,
     locationLabel,
@@ -194,6 +212,7 @@ export const useSearch = () => {
     clearLocation,
     clearDates,
     clearGuests,
+    clearAll,
     setDateRange,
     setAdults,
     setChildrenCount,

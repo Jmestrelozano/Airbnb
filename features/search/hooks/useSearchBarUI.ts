@@ -3,26 +3,13 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { SearchPanel } from "@/features/search/types/searchPanel.type";
-
-type PillStyle = {
-  left: number;
-  width: number;
-  opacity: number;
-};
-
-type UseSearchBarUIParams = {
-  isExpanded: boolean;
-  activePanel: SearchPanel;
-  closeSearch: () => void;
-  locationLabel: string;
-  durationLabel: string;
-  guestLabel: string;
-  hasLocation: boolean;
-  hasDates: boolean;
-  hasGuests: boolean;
-};
+import {
+  SearchPillStyle,
+  UseSearchBarUIParams,
+} from "@/features/search/types/searchBarUI.interface";
 
 export const useSearchBarUI = ({
+  isScrolled,
   isExpanded,
   activePanel,
   closeSearch,
@@ -40,7 +27,11 @@ export const useSearchBarUI = ({
   const whoRef = useRef<HTMLDivElement>(null);
   const prevPanelRef = useRef<SearchPanel>(null);
 
-  const [pillStyle, setPillStyle] = useState<PillStyle>({
+  const isCompact = isScrolled && !isExpanded;
+  const wasCompactRef = useRef(isCompact);
+  const [animateFullIn, setAnimateFullIn] = useState(false);
+
+  const [pillStyle, setPillStyle] = useState<SearchPillStyle>({
     left: 0,
     width: 0,
     opacity: 0,
@@ -48,11 +39,22 @@ export const useSearchBarUI = ({
   const [pillReady, setPillReady] = useState(false);
 
   useEffect(() => {
+    if (wasCompactRef.current && !isCompact) {
+      setAnimateFullIn(true);
+    }
+    wasCompactRef.current = isCompact;
+  }, [isCompact]);
+
+  useEffect(() => {
     if (!isExpanded) {
       return;
     }
 
     const handlePointerDown = (event: MouseEvent) => {
+      if (window.matchMedia("(max-width: 639px)").matches) {
+        return;
+      }
+
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
@@ -106,7 +108,6 @@ export const useSearchBarUI = ({
     prevPanelRef.current = activePanel;
 
     if (isFirstOpen) {
-      // Primer frame sin transición para que no salte desde left:0
       requestAnimationFrame(() => setPillReady(true));
     } else {
       setPillReady(true);
@@ -154,5 +155,11 @@ export const useSearchBarUI = ({
     segmentClass,
     showAfterWhereDivider,
     showAfterDatesDivider,
+    isCompact,
+    animateFullIn,
+    compactLocation: hasLocation ? locationLabel : "En cualquier lugar",
+    compactDates: hasDates ? durationLabel : "Cualquier semana",
+    compactGuests: hasGuests ? guestLabel : "Añade huéspedes",
+    mobileTriggerLabel: hasLocation ? locationLabel : "Empieza la búsqueda",
   };
 };

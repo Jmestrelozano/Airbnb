@@ -1,17 +1,7 @@
 "use client";
 
 import { Counter } from "@/shared/ui/Counter";
-
-type SearchGuestsPanelProps = {
-  adults: number;
-  childrenCount: number;
-  infants: number;
-  pets: number;
-  setAdults: (value: number) => void;
-  setChildrenCount: (value: number) => void;
-  setInfants: (value: number) => void;
-  setPets: (value: number) => void;
-};
+import { SearchGuestsPanelProps } from "@/features/search/types/searchGuestsPanel.interface";
 
 export const SearchGuestsPanel: React.FC<SearchGuestsPanelProps> = ({
   adults,
@@ -24,7 +14,7 @@ export const SearchGuestsPanel: React.FC<SearchGuestsPanelProps> = ({
   setPets,
 }) => {
   return (
-    <div className="absolute right-0 top-[calc(100%+12px)] w-[380px] max-w-[90vw] bg-white rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 px-6 py-4 z-50 search-panel-enter">
+    <div className="absolute left-0 right-0 sm:left-auto sm:right-0 top-[calc(100%+12px)] w-full sm:w-[380px] max-w-[calc(100vw-2rem)] mx-auto sm:mx-0 bg-white rounded-[24px] sm:rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 px-4 sm:px-6 py-3 sm:py-4 z-50 search-panel-enter">
       <div className="py-4 border-b border-neutral-200">
         <Counter
           title="Adultos"

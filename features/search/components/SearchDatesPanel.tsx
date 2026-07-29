@@ -1,48 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { Range } from "react-date-range";
 import { es } from "date-fns/locale";
 import { IoClose } from "react-icons/io5";
 
 import { InputCalendar } from "@/shared/ui/Calendar";
-
-const FLEX_OPTIONS = [
-  { label: "Fechas exactas", value: 0 },
-  { label: "± 1 día", value: 1 },
-  { label: "± 2 días", value: 2 },
-  { label: "± 3 días", value: 3 },
-  { label: "± 7 días", value: 7 },
-  { label: "± 14 días", value: 14 },
-];
-
-type SearchDatesPanelProps = {
-  dateRange: Range;
-  onChange: (value: Range) => void;
-};
+import { SearchDatesPanelProps } from "@/features/search/types/searchDatesPanel.interface";
 
 export const SearchDatesPanel: React.FC<SearchDatesPanelProps> = ({
   dateRange,
   onChange,
+  mode,
+  setMode,
+  flexDays,
+  setFlexDays,
+  months,
+  flexOptions,
+  clearFlexFilter,
 }) => {
-  const [mode, setMode] = useState<"dates" | "flexible">("dates");
-  const [flexDays, setFlexDays] = useState<number | null>(0);
-
-  const clearFlexFilter = (e: React.MouseEvent, value: number) => {
-    e.stopPropagation();
-    if (flexDays === value) {
-      setFlexDays(null);
-    }
-  };
-
   return (
-    <div className="absolute left-1/2 top-[calc(100%+12px)] w-[780px] max-w-[95vw] bg-white rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 p-6 z-50 search-panel-enter-center">
-      <div className="flex justify-center mb-6">
+    <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(100vw-1.5rem,780px)] max-w-[calc(100vw-1.5rem)] bg-white rounded-[24px] sm:rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 p-4 sm:p-6 z-50 search-panel-enter-center overflow-x-auto">
+      <div className="flex justify-center mb-4 sm:mb-6">
         <div className="inline-flex bg-neutral-100 rounded-full p-1">
           <button
             type="button"
             onClick={() => setMode("dates")}
-            className={`px-6 py-2 rounded-full text-sm font-semibold transition ${
+            className={`px-4 sm:px-6 py-2 rounded-full text-sm font-semibold transition ${
               mode === "dates"
                 ? "bg-white shadow-sm text-neutral-800"
                 : "text-neutral-600"
@@ -53,7 +35,7 @@ export const SearchDatesPanel: React.FC<SearchDatesPanelProps> = ({
           <button
             type="button"
             onClick={() => setMode("flexible")}
-            className={`px-6 py-2 rounded-full text-sm font-semibold transition ${
+            className={`px-4 sm:px-6 py-2 rounded-full text-sm font-semibold transition ${
               mode === "flexible"
                 ? "bg-white shadow-sm text-neutral-800"
                 : "text-neutral-600"
@@ -70,14 +52,14 @@ export const SearchDatesPanel: React.FC<SearchDatesPanelProps> = ({
             <InputCalendar
               value={dateRange}
               onChange={(value) => onChange(value.selection)}
-              months={2}
+              months={months}
               direction="horizontal"
               locale={es}
               rangeColors={["#ebebeb"]}
             />
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 mt-4 pt-2">
-            {FLEX_OPTIONS.map((option) => {
+            {flexOptions.map((option) => {
               const isSelected = flexDays === option.value;
 
               return (
@@ -87,7 +69,7 @@ export const SearchDatesPanel: React.FC<SearchDatesPanelProps> = ({
                   onClick={() => setFlexDays(option.value)}
                   className={`
                     inline-flex items-center gap-1.5
-                    px-4 py-2 rounded-full text-sm font-medium transition
+                    px-3 sm:px-4 py-2 rounded-full text-sm font-medium transition
                     ${
                       isSelected
                         ? "bg-white border border-neutral-800 text-neutral-800"
@@ -104,10 +86,7 @@ export const SearchDatesPanel: React.FC<SearchDatesPanelProps> = ({
                       onClick={(e) => clearFlexFilter(e, option.value)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          clearFlexFilter(
-                            e as unknown as React.MouseEvent,
-                            option.value
-                          );
+                          clearFlexFilter(e, option.value);
                         }
                       }}
                       className="

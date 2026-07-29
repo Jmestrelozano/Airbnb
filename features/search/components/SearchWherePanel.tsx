@@ -1,18 +1,13 @@
 "use client";
 
-import { SuggestedDestination } from "@/features/search/utils/suggestedDestinations";
-
-type SearchWherePanelProps = {
-  destinations: SuggestedDestination[];
-  onSelect: (destination: SuggestedDestination) => void;
-};
+import { SearchWherePanelProps } from "@/features/search/types/searchWherePanel.interface";
 
 export const SearchWherePanel: React.FC<SearchWherePanelProps> = ({
   destinations,
   onSelect,
 }) => {
   return (
-    <div className="absolute left-0 top-[calc(100%+12px)] w-[420px] max-w-[90vw] bg-white rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 p-6 z-50 search-panel-enter">
+    <div className="absolute left-0 sm:left-0 top-[calc(100%+12px)] w-[min(100vw-2rem,420px)] sm:w-[420px] max-w-[calc(100vw-2rem)] bg-white rounded-[24px] sm:rounded-[32px] shadow-[0_6px_20px_rgba(0,0,0,0.2)] border border-neutral-100 p-4 sm:p-6 z-50 search-panel-enter">
       <div className="text-xs font-semibold text-neutral-500 mb-4 px-2">
         Destinos sugeridos
       </div>

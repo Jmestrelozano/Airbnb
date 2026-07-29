@@ -3,4 +3,5 @@ export interface NavbarProps {
   search: React.ReactNode;
   userMenu: React.ReactNode;
   categories: React.ReactNode;
+  isScrolled?: boolean;
 }

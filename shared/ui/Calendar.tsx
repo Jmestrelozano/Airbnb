@@ -25,6 +25,7 @@ export const InputCalendar: React.FC<InputCalendarProps> = ({
       direction={direction}
       months={months}
       showDateDisplay={false}
+      showMonthAndYearPickers={false}
       minDate={new Date()}
       disabledDates={disabledDates}
       locale={locale}
