@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/ui/Button";
 import { InputCalendar } from "@/shared/ui/Calendar";
-import { ListingReservationProps } from "@/features/listings/types/listingReservation";
+import { ListingReservationProps } from "@/features/listings/types/listingReservation.interface";
 
 export const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
@@ -28,7 +28,7 @@ export const ListingReservation: React.FC<ListingReservationProps> = ({
       flex flex-row items-center gap-1 p-4"
       >
         <div className="text-2xl font-semibold">$ {price}</div>
-        <div className="font-light text-neutral-600">night</div>
+        <div className="font-light text-neutral-600">noche</div>
       </div>
       <hr />
       <InputCalendar
@@ -38,7 +38,7 @@ export const ListingReservation: React.FC<ListingReservationProps> = ({
       />
       <hr />
       <div className="p-4">
-        <Button disabled={disabled} label="Reserve" onClick={onSubmit} />
+        <Button disabled={disabled} label="Reservar" onClick={onSubmit} />
       </div>
       <hr />
       <div

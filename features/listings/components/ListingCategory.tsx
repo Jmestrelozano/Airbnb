@@ -1,6 +1,6 @@
 "use client";
 
-import { ListingCategoryProps } from "@/features/listings/types/listingCategory";
+import { ListingCategoryProps } from "@/features/listings/types/listingCategory.interface";
 
 export const ListingCategory: React.FC<ListingCategoryProps> = ({
   icon: Icon,

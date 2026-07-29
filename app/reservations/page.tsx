@@ -2,7 +2,7 @@ import { EmptyState } from "@/shared/ui/EmptyState";
 
 import getReservations from "@/features/reservations/actions/getReservations";
 import getCurrentUser from "@/features/auth/actions/dbUser";
-import ReservationsClient from "@/features/reservations/ReservationsClient";
+import ReservationsView from "@/features/reservations/ReservationsView";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +18,7 @@ const ReservationsPage = async () => {
   return (
     <>
       {reservations.length ? (
-        <ReservationsClient
+        <ReservationsView
           reservations={reservations}
           currentUser={currentUser}
         />

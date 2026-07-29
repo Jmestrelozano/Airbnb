@@ -6,12 +6,13 @@ Documento práctico para añadir una capacidad nueva al proyecto. Complementa [e
 
 1. Definir el **nombre** y el **límite** de la feature.
 2. Crear la carpeta en `features/<nombre>/`.
-3. Añadir solo las subcarpetas necesarias (`components`, `actions`, `hooks`, `types`, …).
+3. Añadir solo las subcarpetas necesarias (`components`, `hooks`, `utils`, `actions`, `types`, …).
 4. Crear la **ruta delgada** en `app/` (si hay página).
 5. Crear **API route** en `app/api/` solo si hay endpoint HTTP (lógica en la feature o shared).
 6. Reutilizar `shared/` antes de inventar UI nueva.
-7. Imports **directos al archivo** (sin `index.ts` barrel).
-8. Verificar con `npx tsc --noEmit` y/o `npm run build`.
+7. Separar View (composición) + component (presentacional) + hook (lógica).
+8. Imports **directos al archivo** (sin `index.ts` barrel).
+9. Verificar con `npx tsc --noEmit` y/o `npm run build`.
 
 ---
 
@@ -37,14 +38,15 @@ Ejemplo para una feature `reviews`:
 ```
 features/reviews/
 ├── components/
-│   └── ReviewCard.tsx
+│   └── ReviewCard.tsx          # presentacional
+├── hooks/
+│   └── useReviews.ts           # orquestación
+├── utils/                      # opcional
 ├── actions/
 │   └── getReviews.ts
-├── hooks/                    # opcional
-│   └── useReviewForm.ts
 ├── types/
 │   └── reviewCard.ts
-└── ReviewsClient.tsx         # client de la página (si aplica)
+└── ReviewsView.tsx             # View: hook → props → component
 ```
 
 No crees subcarpetas vacías “por si acaso”.
@@ -80,16 +82,16 @@ import { ReviewCardProps } from "@/features/reviews/types/reviewCard";
 
 ---
 
-## 4. Components
+## 4. Components (presentacionales)
 
-UI que solo tiene sentido en esta feature:
+UI que solo tiene sentido en esta feature. **Sin lógica de negocio**:
 
 ```tsx
 // features/reviews/components/ReviewCard.tsx
 "use client";
 
 import { ReviewCardProps } from "@/features/reviews/types/reviewCard";
-import { Heading } from "@/shared/ui/Heading"; // shared está bien
+import { Heading } from "@/shared/ui/Heading";
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ body }) => {
   return (
@@ -99,6 +101,22 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ body }) => {
     </div>
   );
 };
+```
+
+La lógica (API, estado, navegación) va en `hooks/`. Los cálculos puros van en `utils/`.
+La composición vive en `*View.tsx`:
+
+```tsx
+// features/reviews/ReviewsView.tsx
+"use client";
+
+import { useReviews } from "@/features/reviews/hooks/useReviews";
+import { ReviewCard } from "@/features/reviews/components/ReviewCard";
+
+export default function ReviewsView(props) {
+  const { reviews } = useReviews(props);
+  return reviews.map((review) => <ReviewCard key={review.id} {...review} />);
+}
 ```
 
 **Cuándo va a `shared/ui` en vez de la feature**
@@ -160,7 +178,7 @@ La ruta sigue las convenciones de App Router. La página solo cablea datos + UI.
 ```tsx
 // app/reviews/page.tsx
 import { EmptyState } from "@/shared/ui/EmptyState";
-import ReviewsClient from "@/features/reviews/ReviewsClient";
+import ReviewsView from "@/features/reviews/ReviewsView";
 import getCurrentUser from "@/features/auth/actions/dbUser";
 import getReviewsByUser from "@/features/reviews/actions/getReviewsByUser";
 
@@ -184,7 +202,7 @@ const ReviewsPage = async () => {
     );
   }
 
-  return <ReviewsClient reviews={reviews} currentUser={currentUser} />;
+  return <ReviewsView reviews={reviews} currentUser={currentUser} />;
 };
 
 export default ReviewsPage;
@@ -193,14 +211,13 @@ export default ReviewsPage;
 Client de la feature:
 
 ```tsx
-// features/reviews/ReviewsClient.tsx
+// features/reviews/ReviewsView.tsx
 "use client";
 
 import { Container } from "@/shared/ui/Container";
 import { ReviewCard } from "@/features/reviews/components/ReviewCard";
-// ...
 
-export default function ReviewsClient({ reviews, currentUser }) {
+export default function ReviewsView({ reviews, currentUser }) {
   return (
     <Container>
       {reviews.map((review) => (
@@ -281,8 +298,8 @@ mkdir -p app/api/mi-feature
 Archivos mínimos frecuentes:
 
 1. `features/mi-feature/types/...`
-2. `features/mi-feature/components/...` o `MiFeatureClient.tsx`
-3. `features/mi-feature/actions/...`
+2. `features/mi-feature/components/...` o `MiFeatureView.tsx`
+3. `features/mi-feature/hooks/...` y/o `actions/...`
 4. `app/mi-feature/page.tsx`
 
 ---
@@ -304,12 +321,13 @@ Comprueba también en el navegador la ruta nueva y los flujos que toquen auth o 
 
 | Quieres… | Copia el patrón de… |
 |---|---|
-| Página lista + client | `favorites`, `trips`, `properties` |
-| Detalle dinámico `[id]` | `listings` |
-| Modal global en layout | `auth` (Login/Register), `search`, `listings` (Rent) |
-| Hook + botón de acción | `favorites` (`useFavorite` + HeartButton) |
-| Pieza de navbar | `navigation`, `search` |
+| Página lista + view | `favorites`, `trips`, `properties` |
+| Detalle dinámico `[id]` | `listings` (`ListingView` + `useListing`) |
+| Modal global en layout | `auth` (`LoginModalView`), `search`, `listings` (`RentModalView`) |
+| Hook + botón de acción | `favorites` (`useFavorite` + `HeartButton` + `HeartButtonView`) |
+| Pieza de navbar | `navigation` (`UserMenuView`, `CategoriesView`), `search` (`SearchView`) |
 | Action de lectura DB | `listings/actions/getListings.ts` |
+| Util puro | `listings/utils/getListingPrice.ts`, `search/utils/buildSearchQueryUrl.ts` |
 
 ---
 

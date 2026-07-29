@@ -1,12 +1,12 @@
 import { Nunito } from "next/font/google";
 import { Suspense } from "react";
 
-import { Navbar } from "@/features/navigation/components/Navbar";
+import { NavbarView } from "@/features/navigation/NavbarView";
 import { ToasterProvider } from "@/shared/providers/ToasterProvider";
-import { RegisterModal } from "@/features/auth/components/RegisterModal";
-import LoginModal from "@/features/auth/components/LoginModal";
-import { RentModal } from "@/features/listings/components/RentModal";
-import { SearchModal } from "@/features/search/components/SearchModal";
+import { RegisterModalView } from "@/features/auth/RegisterModalView";
+import { LoginModalView } from "@/features/auth/LoginModalView";
+import { RentModalView } from "@/features/listings/RentModalView";
+import { SearchModalView } from "@/features/search/SearchModalView";
 
 import getCurrentUser from "@/features/auth/actions/dbUser";
 
@@ -38,18 +38,18 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
 
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={font.className}>
         <ToasterProvider />
-        <LoginModal />
-        <RegisterModal />
+        <LoginModalView />
+        <RegisterModalView />
         <Suspense fallback={null}>
-          <SearchModal />
+          <SearchModalView />
         </Suspense>
-        <RentModal />
-        <Navbar currentUser={currentUser} />
+        <RentModalView />
+        <NavbarView currentUser={currentUser} />
 
-        <div className="pb-20 pt-28">{children}</div>
+        <div className="pb-20 pt-48 md:pt-52">{children}</div>
       </body>
     </html>
   );

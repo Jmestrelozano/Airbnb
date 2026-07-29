@@ -57,14 +57,27 @@ Estructura típica dentro de una feature:
 
 ```
 features/<nombre>/
-├── components/     # UI propia del dominio
+├── components/     # UI presentacional (solo props → JSX)
+├── hooks/          # Orquestación: estado, API, navegación, store
+├── utils/          # Funciones puras (cálculos, query builders)
 ├── actions/        # Server actions / fetches de servidor
-├── hooks/          # Hooks específicos
 ├── types/          # Tipos e interfaces del dominio
-├── <Nombre>Client.tsx   # Client component de la página (si aplica)
+├── <Nombre>View.tsx   # Cablea el hook y pasa props al componente
 ```
 
 No todas las subcarpetas son obligatorias: solo crea las que uses.
+
+### Capas y SOLID
+
+| Capa | Responsabilidad |
+|---|---|
+| `components/` | Solo renderizar. Sin axios, router, store ni cálculos de dominio. |
+| `hooks/` | Caso de uso: estado + side effects. Sin JSX. |
+| `utils/` | Transformaciones puras y tipadas. |
+| `*View.tsx` | `const vm = useX(props); return <Component {...vm} />` |
+| `actions/` | Lectura/escritura en servidor (Prisma). |
+
+Los componentes hacen **una sola cosa**: pintar. La lógica vive en hooks/utils.
 
 ### `shared/` — transversal
 

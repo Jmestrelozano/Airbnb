@@ -1,6 +1,6 @@
 import { EmptyState } from "@/shared/ui/EmptyState";
 
-import ListingClient from "@/features/listings/ListingClient";
+import ListingView from "@/features/listings/ListingView";
 
 import getCurrentUser from "@/features/auth/actions/dbUser";
 import getListingById from "@/features/listings/actions/getListingById";
@@ -22,7 +22,7 @@ const ListingPage = async ({ params }: { params: Promise<IParams> }) => {
   }
 
   return (
-    <ListingClient
+    <ListingView
       listing={listing}
       reservations={reservations}
       currentUser={currentUser}

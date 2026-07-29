@@ -2,38 +2,18 @@
 
 import Image from "next/image";
 import { Heading } from "@/shared/ui/Heading";
-import { HeartButton } from "@/features/favorites/components/HeartButton";
+import { ListingHeadPresentationalProps } from "@/features/listings/types/listingHead.interface";
 
-import { useCountries } from "@/shared/hooks/useCountries";
-
-import { ListingHeadProps } from "@/features/listings/types/listingHead";
-
-export const ListingHead: React.FC<ListingHeadProps> = ({
+export const ListingHead: React.FC<ListingHeadPresentationalProps> = ({
   title,
-  locationValue,
+  subtitle,
   imageSrc,
-  id,
-  currentUser,
+  heart,
 }) => {
-  const { getByValue } = useCountries();
-
-  const location = getByValue(locationValue);
-
   return (
     <>
-      <Heading
-        title={title}
-        subtitle={`${location?.region}, ${location?.label}`}
-      />
-      <div
-        className="
-          w-full
-          h-[60vh]
-          overflow-hidden 
-          rounded-xl
-          relative
-        "
-      >
+      <Heading title={title} subtitle={subtitle} />
+      <div className="w-full h-[60vh] overflow-hidden rounded-xl relative">
         <Image
           loading="lazy"
           src={imageSrc}
@@ -41,15 +21,7 @@ export const ListingHead: React.FC<ListingHeadProps> = ({
           className="object-cover w-full"
           alt="Image"
         />
-        <div
-          className="
-            absolute
-            top-5
-            right-5
-          "
-        >
-          <HeartButton listingId={id} currentUser={currentUser} />
-        </div>
+        <div className="absolute top-5 right-5">{heart}</div>
       </div>
     </>
   );

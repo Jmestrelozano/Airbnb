@@ -11,17 +11,25 @@ export const InputCalendar: React.FC<InputCalendarProps> = ({
   value,
   onChange,
   disabledDates,
+  months = 1,
+  direction = "vertical",
+  locale,
+  rangeColors = ["#222222"],
 }) => {
   return (
     <DateRange
-      rangeColors={["#262626"]}
+      rangeColors={rangeColors}
       ranges={[value]}
       date={new Date()}
       onChange={onChange}
-      direction="vertical"
+      direction={direction}
+      months={months}
       showDateDisplay={false}
+      showMonthAndYearPickers={false}
       minDate={new Date()}
       disabledDates={disabledDates}
+      locale={locale}
+      monthDisplayFormat="MMMM yyyy"
     />
   );
 };

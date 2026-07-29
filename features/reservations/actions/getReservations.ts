@@ -1,3 +1,5 @@
+import type { Listing, Prisma, Reservation } from "@prisma/client";
+
 import prismadb from "@/shared/lib/prismadb";
 
 interface IParams {
@@ -6,35 +8,39 @@ interface IParams {
   authorId?: string;
 }
 
+type ReservationWithListing = Reservation & {
+  listing: Listing;
+};
+
 export default async function getReservations(params: IParams) {
   try {
     const { listingId, userId, authorId } = params;
 
-    const query: any = {};
+    const where: Prisma.ReservationWhereInput = {};
 
     if (listingId) {
-      query.listingId = listingId;
+      where.listingId = listingId;
     }
 
     if (userId) {
-      query.userId = userId;
+      where.userId = userId;
     }
 
     if (authorId) {
-      query.listing = { userId: authorId };
+      where.listing = { userId: authorId };
     }
 
-    const reservations = await prismadb.reservation.findMany({
-      where: query,
+    const reservations = (await prismadb.reservation.findMany({
+      where,
       include: {
         listing: true,
       },
       orderBy: {
         createdAt: "desc",
       },
-    });
+    })) as ReservationWithListing[];
 
-    const safeReservations = reservations.map((reservation) => ({
+    return reservations.map((reservation) => ({
       ...reservation,
       createdAt: reservation.createdAt.toISOString(),
       startDate: reservation.startDate.toISOString(),
@@ -44,9 +50,7 @@ export default async function getReservations(params: IParams) {
         createdAt: reservation.listing.createdAt.toISOString(),
       },
     }));
-
-    return safeReservations;
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error(error instanceof Error ? error.message : String(error));
   }
 }

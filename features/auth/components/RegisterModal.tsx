@@ -1,67 +1,25 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "react-hot-toast";
-import axios from "axios";
 
 import { Modal } from "@/shared/ui/Modal";
-import { useStore } from "@/shared/lib/store";
-
 import { Heading } from "@/shared/ui/Heading";
 import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
-import { AxiosIsError } from "@/shared/lib/axiosIsError";
+import { RegisterModalProps } from "@/features/auth/types/registerModal.interface";
 
-import { Store } from "@/shared/lib/types/store";
-
-export const RegisterModal = () => {
-  const { onCloseRegisterModal, onOpenLoginModal, isOpenRegisterModal } =
-    useStore((store: Store) => store);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-    axios
-      .post("/api/auth/register", data)
-      .then(() => {
-        toast.success("Registered!");
-        onCloseRegisterModal();
-        onOpenLoginModal();
-      })
-      .catch((error) => {
-        if (AxiosIsError(error)) {
-          return toast.error(
-            "Hubo un error en el servidor, Intenta nuevamente"
-          );
-        }
-
-        toast.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  const onToggle = useCallback(() => {
-    onCloseRegisterModal();
-    onOpenLoginModal();
-  }, [onCloseRegisterModal, onOpenLoginModal]);
-
+export const RegisterModal: React.FC<RegisterModalProps> = ({
+  isOpen,
+  isLoading,
+  register,
+  errors,
+  onClose,
+  onSubmit,
+  onToggle,
+  onGoogle,
+  onGithub,
+}) => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
@@ -100,31 +58,20 @@ export const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={onGoogle}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={onGithub}
       />
-      <div
-        className="
-          text-neutral-500 
-          text-center 
-          mt-4 
-          font-light
-        "
-      >
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           Already have an account?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Log in
@@ -137,11 +84,11 @@ export const RegisterModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={isOpenRegisterModal}
+      isOpen={isOpen}
       title="Register"
       actionLabel="Continue"
-      onClose={onCloseRegisterModal}
-      onSubmit={handleSubmit(onSubmit)}
+      onClose={onClose}
+      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />

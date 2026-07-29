@@ -17,13 +17,11 @@ export default async function getFavoriteListings() {
       },
     });
 
-    const safeFavorites = favorites.map((favorite) => ({
+    return favorites.map((favorite) => ({
       ...favorite,
       createdAt: favorite.createdAt.toString(),
     }));
-
-    return safeFavorites;
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error(error instanceof Error ? error.message : String(error));
   }
 }

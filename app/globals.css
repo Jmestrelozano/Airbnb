@@ -2,9 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --airbnb-rausch: #ff385c;
+  --airbnb-rausch-hover: #d90b63;
+  --airbnb-text: #222222;
+  --airbnb-muted: #6a6a6a;
+  --airbnb-border: #dddddd;
+  --airbnb-bg: #ffffff;
+}
+
 html,
-body :root {
+body,
+:root {
   height: 100%;
+}
+
+body {
+  color: var(--airbnb-text);
+  background: var(--airbnb-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .leaflet-bottom,
@@ -21,4 +38,299 @@ body :root {
 .rdrCalendarWrapper {
   font-size: 16px !important;
   width: 100% !important;
+}
+
+/* Ocultar scrollbar en categorías (estilo Airbnb) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animaciones de la barra de búsqueda (estilo Airbnb) */
+@keyframes search-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes search-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes search-panel-in-center {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.search-overlay-enter {
+  animation: search-overlay-in 250ms ease forwards;
+}
+
+.search-panel-enter {
+  transform-origin: top center;
+  animation: search-panel-in 280ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.search-panel-enter-center {
+  transform-origin: top center;
+  animation: search-panel-in-center 280ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.search-pill {
+  transition:
+    left 420ms cubic-bezier(0.4, 0, 0.2, 1),
+    width 420ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 200ms ease;
+}
+
+.search-pill-instant {
+  transition: opacity 160ms ease;
+}
+
+/* Aparición / ocultamiento de la barra al hacer scroll (estilo Airbnb) */
+@keyframes search-compact-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes search-full-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.search-compact-enter {
+  animation: search-compact-in 280ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.search-full-enter {
+  animation: search-full-in 320ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes search-mobile-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-mobile-sheet-enter {
+  animation: search-mobile-sheet-in 280ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.safe-pb {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Calendario estilo Airbnb */
+.airbnb-calendar .rdrCalendarWrapper {
+  font-size: 14px !important;
+  background: transparent;
+  width: auto !important;
+}
+
+.airbnb-calendar .rdrMonth {
+  width: min(320px, calc(100vw - 3rem)) !important;
+  padding: 0 12px !important;
+}
+
+.airbnb-calendar .rdrMonthAndYearWrapper {
+  padding-top: 0;
+  height: 48px;
+}
+
+.airbnb-calendar .rdrMonthAndYearPickers {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.airbnb-calendar .rdrDay {
+  position: relative;
+}
+
+.airbnb-calendar .rdrDayNumber {
+  z-index: 2;
+}
+
+.airbnb-calendar .rdrDayNumber span {
+  color: #222222;
+  font-weight: 500;
+}
+
+.airbnb-calendar .rdrDayToday .rdrDayNumber span:after {
+  background: #222222;
+}
+
+.airbnb-calendar .rdrDayDisabled {
+  background: transparent;
+}
+
+.airbnb-calendar .rdrDayDisabled .rdrDayNumber span {
+  color: #dddddd !important;
+}
+
+/* Barra del rango: gris claro + forma ovalada por fila */
+.airbnb-calendar .rdrInRange {
+  background: #ebebeb !important;
+  color: #ebebeb !important;
+  top: 3px !important;
+  bottom: 3px !important;
+}
+
+.airbnb-calendar .rdrDayStartOfWeek .rdrInRange,
+.airbnb-calendar .rdrDayStartOfMonth .rdrInRange {
+  border-top-left-radius: 999px !important;
+  border-bottom-left-radius: 999px !important;
+  left: 2px !important;
+}
+
+.airbnb-calendar .rdrDayEndOfWeek .rdrInRange,
+.airbnb-calendar .rdrDayEndOfMonth .rdrInRange {
+  border-top-right-radius: 999px !important;
+  border-bottom-right-radius: 999px !important;
+  right: 2px !important;
+}
+
+/*
+  El theme de react-date-range fuerza texto blanco en .rdrInRange ~ .rdrDayNumber.
+  Aquí lo corregimos a negro para los días intermedios.
+*/
+.airbnb-calendar .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span {
+  color: #222222 !important;
+  font-weight: 600;
+}
+
+/* Inicio / fin: círculo negro + texto blanco */
+.airbnb-calendar .rdrStartEdge,
+.airbnb-calendar .rdrEndEdge {
+  background: #222222 !important;
+  color: #222222 !important;
+  border-radius: 50% !important;
+  top: 3px !important;
+  bottom: 3px !important;
+  left: 2px !important;
+  right: 2px !important;
+  z-index: 1;
+}
+
+.airbnb-calendar .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+.airbnb-calendar .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* Extensión gris desde el inicio hacia la derecha (forma continua ovalada) */
+.airbnb-calendar .rdrDay:has(.rdrStartEdge):not(:has(.rdrEndEdge))::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 50%;
+  right: 0;
+  background: #ebebeb;
+  z-index: 0;
+}
+
+.airbnb-calendar .rdrDayEndOfWeek:has(.rdrStartEdge):not(:has(.rdrEndEdge))::before,
+.airbnb-calendar .rdrDayEndOfMonth:has(.rdrStartEdge):not(:has(.rdrEndEdge))::before {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  right: 2px;
+}
+
+/* Extensión gris desde la izquierda hasta el fin */
+.airbnb-calendar .rdrDay:has(.rdrEndEdge):not(:has(.rdrStartEdge))::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  right: 50%;
+  background: #ebebeb;
+  z-index: 0;
+}
+
+.airbnb-calendar .rdrDayStartOfWeek:has(.rdrEndEdge):not(:has(.rdrStartEdge))::before,
+.airbnb-calendar .rdrDayStartOfMonth:has(.rdrEndEdge):not(:has(.rdrStartEdge))::before {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  left: 2px;
+}
+
+.airbnb-calendar .rdrDayHovered:not(.rdrDayPassive) .rdrDayNumber span {
+  color: #222222 !important;
+}
+
+.airbnb-calendar .rdrDay:not(.rdrDayPassive):has(.rdrStartEdge) .rdrDayNumber span,
+.airbnb-calendar .rdrDay:not(.rdrDayPassive):has(.rdrEndEdge) .rdrDayNumber span {
+  color: #ffffff !important;
+}
+
+.airbnb-calendar .rdrDayStartPreview,
+.airbnb-calendar .rdrDayEndPreview,
+.airbnb-calendar .rdrDayInPreview {
+  border: 0;
+  background: transparent;
+}
+
+.airbnb-calendar .rdrDayStartPreview,
+.airbnb-calendar .rdrDayEndPreview {
+  border: 1.5px solid #222222;
+  border-radius: 50%;
+  top: 3px;
+  bottom: 3px;
+  left: 2px;
+  right: 2px;
+}
+
+.airbnb-calendar .rdrNextPrevButton {
+  background: transparent;
+  border-radius: 50%;
+}
+
+.airbnb-calendar .rdrNextPrevButton:hover {
+  background: #f7f7f7;
+}
+
+.airbnb-calendar .rdrWeekDay {
+  color: #717171;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
 }

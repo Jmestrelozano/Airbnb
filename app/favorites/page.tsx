@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Loading from "../loading";
 import { EmptyState } from "@/shared/ui/EmptyState";
-import FavoritesClient from "@/features/favorites/FavoritesClient";
+import FavoritesView from "@/features/favorites/FavoritesView";
 
 import getCurrentUser from "@/features/auth/actions/dbUser";
 import getFavoriteListings from "@/features/favorites/actions/getFavoriteListings";
@@ -23,7 +23,7 @@ const ListingPage = async () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <FavoritesClient listings={listings} currentUser={currentUser} />
+      <FavoritesView listings={listings} currentUser={currentUser} />
     </Suspense>
   );
 };
