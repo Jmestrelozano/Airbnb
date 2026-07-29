@@ -38,7 +38,7 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
 
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={font.className}>
         <ToasterProvider />
         <LoginModalView />
@@ -49,7 +49,7 @@ export default async function RootLayout({
         <RentModalView />
         <NavbarView currentUser={currentUser} />
 
-        <div className="pb-20 pt-28">{children}</div>
+        <div className="pb-20 pt-48 md:pt-52">{children}</div>
       </body>
     </html>
   );

@@ -19,16 +19,10 @@ export const Button: React.FC<ButtonProps> = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         rounded-lg
-        hover:opacity-80
         transition
         w-full
-        ${outline ? "bg-white" : "bg-rose-500"}
-        ${outline ? "border-black" : "border-rose-500"}
-        ${outline ? "text-black" : "text-white"}
-        ${small ? "text-sm" : "text-md"}
-        ${small ? "py-1" : "py-3"}
-        ${small ? "font-light" : "font-semibold"}
-        ${small ? "border-[1px]" : "border-2"}
+        ${outline ? "bg-white border-black text-black hover:opacity-80" : "bg-airbnb border-airbnb text-white hover:bg-airbnb-hover"}
+        ${small ? "text-sm py-1 font-light border-[1px]" : "text-md py-3 font-semibold border-2"}
       `}
     >
       {Icon && (

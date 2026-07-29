@@ -17,6 +17,7 @@ export const CategoriesView = () => {
         <ContainerCategoryBoxView
           key={item.label}
           label={item.label}
+          displayLabel={item.displayLabel}
           icon={item.icon}
           selected={selectedCategory === item.label}
         />

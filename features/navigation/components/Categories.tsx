@@ -6,7 +6,15 @@ import { CategoriesProps } from "@/features/navigation/types/categories.interfac
 export const Categories: React.FC<CategoriesProps> = ({ children }) => {
   return (
     <Container>
-      <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
+      <div
+        className="
+          pt-3 pb-1
+          flex flex-row items-center justify-between
+          overflow-x-auto
+          scrollbar-hide
+          gap-1
+        "
+      >
         {children}
       </div>
     </Container>

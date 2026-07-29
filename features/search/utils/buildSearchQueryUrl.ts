@@ -30,11 +30,8 @@ export function buildSearchQueryUrl({
     bathroomCount,
   };
 
-  if (dateRange.startDate) {
+  if (dateRange.startDate && dateRange.endDate) {
     updatedQuery.startDate = formatISO(dateRange.startDate);
-  }
-
-  if (dateRange.endDate) {
     updatedQuery.endDate = formatISO(dateRange.endDate);
   }
 

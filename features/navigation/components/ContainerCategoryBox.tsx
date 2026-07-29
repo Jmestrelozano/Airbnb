@@ -5,6 +5,7 @@ import { ContainerCategoryBoxProps } from "@/features/navigation/types/container
 export const ContainerCategoryBox: React.FC<ContainerCategoryBoxProps> = ({
   icon: Icon,
   label,
+  displayLabel,
   selected,
   onClick,
 }) => {
@@ -16,18 +17,23 @@ export const ContainerCategoryBox: React.FC<ContainerCategoryBoxProps> = ({
         flex-col 
         items-center 
         justify-center 
-        gap-2
-        p-3
+        gap-1.5
+        px-3
+        py-2
+        min-w-[56px]
         border-b-2
         hover:text-neutral-800
+        hover:border-b-neutral-300
         transition
         cursor-pointer
-        ${selected ? "border-b-neutral-800" : "border-transparent"}
-        ${selected ? "text-neutral-800" : "text-neutral-500"}
+        whitespace-nowrap
+        ${selected ? "border-b-neutral-800 text-neutral-800" : "border-transparent text-neutral-500"}
       `}
     >
-      <Icon size={26} />
-      <div className="font-medium text-sm">{label}</div>
+      <Icon size={24} />
+      <div className="font-medium text-[12px] leading-tight">
+        {displayLabel ?? label}
+      </div>
     </div>
   );
 };

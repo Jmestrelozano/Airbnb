@@ -11,7 +11,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({
   return (
     <div
       onClick={onClick}
-      className="relative hover:opacity-80 transition cursor-pointer"
+      className="relative hover:scale-110 transition cursor-pointer drop-shadow-md"
     >
       <AiOutlineHeart
         size={28}
@@ -19,7 +19,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({
       />
       <AiFillHeart
         size={24}
-        className={hasFavorited ? "fill-rose-500" : "fill-neutral-500/70"}
+        className={hasFavorited ? "fill-airbnb" : "fill-black/50"}
       />
     </div>
   );

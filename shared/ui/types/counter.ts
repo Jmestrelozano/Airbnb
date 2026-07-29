@@ -3,4 +3,5 @@ export interface CounterProps {
   subtitle: string;
   value: number;
   onChange: (value: number) => void;
+  min?: number;
 }

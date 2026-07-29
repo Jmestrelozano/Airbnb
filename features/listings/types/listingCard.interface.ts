@@ -21,4 +21,6 @@ export interface ListingCardViewModel {
   heart: React.ReactNode;
   onNavigate: () => void;
   onActionClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isGuestFavorite?: boolean;
+  rating?: string;
 }

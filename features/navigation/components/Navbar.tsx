@@ -10,8 +10,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   categories,
 }) => {
   return (
-    <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-4 border-b">
+    <div className="fixed w-full bg-white z-20">
+      <div className="py-3 md:py-4 border-b border-neutral-200">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             {logo}

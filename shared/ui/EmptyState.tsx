@@ -7,8 +7,8 @@ import { Button } from "@/shared/ui/Button";
 import { EmptyStateProps } from "@/shared/ui/types/emptyState";
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
-  title = "No exact matches",
-  subtitle = "Try changing or removing some of your filters.",
+  title = "No hay coincidencias exactas",
+  subtitle = "Prueba a cambiar o quitar algunos de tus filtros.",
   showReset,
 }) => {
   const router = useRouter();
@@ -29,7 +29,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {showReset && (
           <Button
             outline
-            label="Remove all filters"
+            label="Quitar todos los filtros"
             onClick={() => router.push("/")}
           />
         )}

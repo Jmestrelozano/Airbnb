@@ -5,10 +5,10 @@ export function getLocationLabel(
   resolveLabel: (value: string) => string | undefined
 ) {
   if (locationValue) {
-    return resolveLabel(locationValue) ?? "Anywhere";
+    return resolveLabel(locationValue) ?? "Explora destinos";
   }
 
-  return "Anywhere";
+  return "Explora destinos";
 }
 
 export function getDurationLabel(
@@ -24,16 +24,17 @@ export function getDurationLabel(
       diff = 1;
     }
 
-    return `${diff} Days`;
+    return `${diff} ${diff === 1 ? "noche" : "noches"}`;
   }
 
-  return "Any Week";
+  return "Agrega fechas";
 }
 
 export function getGuestLabel(guestCount: string | null) {
   if (guestCount) {
-    return `${guestCount} Guests`;
+    const count = Number(guestCount);
+    return `${guestCount} ${count === 1 ? "huésped" : "huéspedes"}`;
   }
 
-  return "Add Guests";
+  return "¿Cuántos?";
 }
