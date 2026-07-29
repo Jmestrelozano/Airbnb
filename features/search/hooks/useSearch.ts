@@ -42,12 +42,13 @@ export const useSearch = (isScrolled = false) => {
   const router = useRouter();
   const params = useSearchParams();
   const { getByValue } = useCountries();
+  const paramsString = params?.toString() ?? "";
 
   const initial = useMemo(
     () => getInitialFromParams(params, getByValue),
     // Solo al montar / cambiar query string
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [params?.toString()]
+    [paramsString]
   );
 
   const [isExpanded, setIsExpanded] = useState(false);
